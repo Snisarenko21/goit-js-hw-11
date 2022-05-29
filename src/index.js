@@ -105,7 +105,7 @@ async function onLoadMoreClick(e) {
   if (hits.length < 40) {
     createImageEl(hits);
     refs.loadMoreBtn.style.display = 'none';
-    Notify.failure('Sorry, there are no images matching your search query. Please try again.');
+    Notify.failure("We're sorry, but you've reached the end of search results.");
   } else createImageEl(hits);
 }
 // === функция очищающая галлерею ====
