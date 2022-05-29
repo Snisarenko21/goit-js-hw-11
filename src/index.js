@@ -111,7 +111,7 @@ async function onLoadMoreClick(e) {
 // === функция очищающая галлерею ====
 function clearImagesContainer() {
   refs.galleryEl.innerHTML = '';
-  refs.loadMoreBtn.style = 'display: none';
+   refs.loadMoreBtn.style.display = 'none';
 }
 // ===функция, для плавного скрола, чтоб проскролить до конца страницы ===
 function scroll() {
