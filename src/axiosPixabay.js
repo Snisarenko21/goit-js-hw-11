@@ -1,7 +1,7 @@
 // === именованный экспорт функции которая делает запрос на бекенд и возвращает промис
 // import axios from 'axios';
 const axios = require('axios');
-const API_KEY = '25154920-bc2b97b916e9c15e1ff6fb5dd';
+const API_KEY = '27687419-9b7122bc0ad1f15a1028fb6b8';
 const BASE_URL = 'https://pixabay.com/api';
 
 export default class ImageApiService {
@@ -14,7 +14,7 @@ export default class ImageApiService {
     // console.log(this);
     const params = new URLSearchParams({
       q: this.searchQuery,
-      key: '25154920-bc2b97b916e9c15e1ff6fb5dd',
+      key: '27687419-9b7122bc0ad1f15a1028fb6b8',
       image_type: 'photo',
       orientation: 'horizontal',
       safesearch: true,
