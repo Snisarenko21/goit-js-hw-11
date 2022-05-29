@@ -16,7 +16,7 @@ const refs = {
 refs.form.style =
   'background-color: #4056b4; display: flex; justify-content: center; padding: 8px; margin-bottom: 8px; position: fixed; top: 0; z-index: 99; width: 100%';
 refs.submitBtn.style = 'margin-left: 32px';
-refs.loadMoreBtn.style = 'display: none';
+refs.loadMoreBtn.style.display = 'none';
 
 // ==== повесили слушатель события  на форму для ввода на событие сабмит ===
 refs.form.addEventListener('submit', onSubmit);
