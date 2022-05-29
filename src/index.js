@@ -6,7 +6,6 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 import { axiosPixabay } from './axiosPixabay';
 import ImageApiService from './axiosPixabay';
 
-
 const refs = {
   form: document.querySelector('#search-form'),
   submitBtn: document.querySelector('#search-form button'),
@@ -14,7 +13,8 @@ const refs = {
   loadMoreBtn: document.querySelector('.load-more'),
 };
 // === оформление элементов ====
-refs.form.style ='background-color: #4056b4; display: flex; justify-content: center; padding: 8px; margin-bottom: 8px; position: fixed; top: 0; z-index: 99; width: 100%';
+refs.form.style =
+  'background-color: #4056b4; display: flex; justify-content: center; padding: 8px; margin-bottom: 8px; position: fixed; top: 0; z-index: 99; width: 100%';
 refs.submitBtn.style = 'margin-left: 32px';
 refs.loadMoreBtn.style = 'display: none';
 
@@ -50,9 +50,9 @@ function createImageEl(hits) {
              </a> `;
     })
     .join('');
-  
+
   refs.galleryEl.insertAdjacentHTML('beforeend', markup);
- 
+
   // ==== вызываем библиотеку лайтбокс и скрол====
   simpleLightbox();
   scroll();
@@ -66,6 +66,7 @@ async function onSubmit(e) {
   e.preventDefault();
   imageApiService.searchQuery = e.currentTarget.elements.searchQuery.value;
   console.log(imageApiService.searchQuery);
+  refs.loadMoreBtn.style.display = 'none';
   // ==== очищаем страницу перед новым запросом ====
   imageApiService.resetPage();
   try {
@@ -77,13 +78,13 @@ async function onSubmit(e) {
       const {
         data: { hits, total, totalHits },
       } = response;
-    
       clearImagesContainer();
       if (hits.length === 0) {
         Notify.failure('Sorry, there are no images matching your search query. Please try again.');
       } else {
         Notify.success(`Hooray! We found ${totalHits} images.`);
         createImageEl(hits);
+        refs.loadMoreBtn.style.display = 'block';
       }
     }
   } catch (error) {
@@ -96,14 +97,15 @@ async function onSubmit(e) {
 async function onLoadMoreClick(e) {
   // ===== запрет браузеру на перезагрузку страницы ====
   e.preventDefault();
-  
+
   const response = await imageApiService.fetchPhotos();
   const {
     data: { hits },
   } = response;
-  if (hits.length === 0) {
+  if (hits.length < 40) {
+    createImageEl(hits);
+    refs.loadMoreBtn.style.display = 'none';
     Notify.failure('Sorry, there are no images matching your search query. Please try again.');
-
   } else createImageEl(hits);
 }
 // === функция очищающая галлерею ====
@@ -114,12 +116,12 @@ function clearImagesContainer() {
 // ===функция, для плавного скрола, чтоб проскролить до конца страницы ===
 function scroll() {
   const { height: cardHeight } = document
-    .querySelector(".gallery")
+    .querySelector('.gallery')
     .firstElementChild.getBoundingClientRect();
 
   window.scrollBy({
     top: cardHeight * 2,
-    behavior: "smooth",
+    behavior: 'smooth',
   });
 }
 
